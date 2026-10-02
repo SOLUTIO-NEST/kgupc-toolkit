@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kgupc-toolkit"
+dynamic = ["version"]
+description = "Shared KGUPC LaTeX templates and Korean PDF renderer"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+dependencies = []
+
+[project.scripts]
+kgupc-toolkit = "kgupc_toolkit.cli:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "kgupc_toolkit.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["kgupc_toolkit"]
+namespaces = false
+
+[tool.setuptools.package-data]
+kgupc_toolkit = ["resources/**/*"]

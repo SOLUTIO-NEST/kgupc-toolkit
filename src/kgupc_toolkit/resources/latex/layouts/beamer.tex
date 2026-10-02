@@ -1,0 +1,102 @@
+\usefonttheme{professionalfonts}
+
+\input{\KGUPCToolkitRoot/latex/core/packages.tex}
+\input{\KGUPCToolkitRoot/latex/core/fonts.tex}
+\input{\KGUPCToolkitRoot/latex/core/colors.tex}
+\input{\KGUPCToolkitRoot/latex/core/macros.tex}
+
+\setbeamercolor{itemize item}{fg=solutio-purple}
+\setbeamercolor{enumerate item}{fg=solutio-purple}
+\setbeamercolor{alerted text}{fg=solutio-purple}
+\setbeamercolor{section in toc}{fg=black}
+
+\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subsubbody}{size=\normalsize}
+
+\setbeamercolor{block title}{fg=white,bg=solutio-purple}
+\setbeamercolor{block body}{bg=solutio-purple!10}
+
+\setbeamertemplate{itemize item}{✓}
+\setbeamertemplate{enumerate item}{
+    {\color{solutio-purple}\insertenumlabel.}
+}
+\setbeamertemplate{itemize subitem}{--}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{title page}{}
+\setbeamertemplate{frametitle}{}
+\setbeamertemplate{caption}{\tiny\insertcaption}
+\setbeamertemplate{caption label separator}{}
+
+\hypersetup{
+    colorlinks=true,
+    urlcolor=solutio-purple,
+    linkcolor=solutio-purple,
+    citecolor=solutio-purple
+}
+
+\newcommand{\sponsorimage}{}
+
+% Link contest-list entries to the labelled first frame of each solution.
+\newcommand{\problemlink}[2]{\hyperlink{problem-#1}{\textcolor{black}{#2}}}
+
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}
+
+\newcommand{\sectiontitle}[2]{
+    {\huge \addfontfeatures{LetterSpace=-5} \color{solutio-purple} \textbf{#1}. #2}\\
+    \vspace{3mm}
+}
+
+\newcommand{\sectionmeta}[1]{
+    \footnotesize{\color{solutio-gray}#1}\\
+    \vspace{6mm}
+}
+
+\newdimen\slidewidth % auxiliary dimension
+\newdimen\slideheight % auxiliary dimension
+
+\slidewidth=\the\paperwidth
+\slideheight=\the\paperheight
+
+\spaceskip=.175em
+\linespread{1.15}
+
+\setbeamertemplate{background}{
+	\begin{tikzpicture}
+		\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+		\fill[color=white] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+
+		\ifnum\thepage=1\relax
+			\fill[color=solutio-purple] (0, 4cm) rectangle(\slidewidth,\slideheight);
+			
+			\node[anchor=south,text width=\slidewidth-2cm,inner xsep=0.5cm,execute at begin node=\setlength{\baselineskip}{18pt}] at (0.5\slidewidth,4.2cm) {\color{white}\Huge\textbf{\inserttitle}};
+			\node[anchor=north east,align=right] at (\slidewidth-1.0cm,3.8cm) {\color{black}\tiny\insertsubtitle};
+			\node[above] at(0.5\slidewidth,3.2cm) {\color{black}\tiny by};
+			\node at (0.5\slidewidth,3cm) {\color{black}\insertauthor};
+
+            \node at (0.5\slidewidth,1.2cm) { \includegraphics[width=0.5\paperwidth]{\sponsorimage}};
+
+			\node[anchor=south west] at(0.9cm,0.4cm) {\color{solutio-gray}\tiny\vphantom{lp}{\inserttitle}};
+			\node[anchor=south east] at(\slidewidth-1.0cm,0.4cm) {\color{solutio-gray}\tiny\insertdate};
+		\else
+			\node[anchor=north,text width=\slidewidth-2.0cm,inner xsep=0.5cm,inner ysep=0.25cm] at (0.5\slidewidth,\slideheight-0.4cm) {\color{solutio-purple}\footnotesize{\insertframetitle}};
+			
+			\node[anchor=north east,inner sep=0pt] (russell) at (\slidewidth-0.9cm, \slideheight-0.5cm) {\includegraphics[height=0.6cm]{\KGUPCToolkitRoot/images/logo.png}};
+			\node[anchor=south west] at(0.9cm,0.4cm) {\color{solutio-gray}\tiny\vphantom{lp}{\inserttitle}};
+			\node[anchor=south east] at(\slidewidth-0.9cm,0.4cm) {\color{solutio-gray}\tiny\insertframenumber};
+		\fi
+	\end{tikzpicture}
+}
+
+\setlength{\leftmargini}{0pt}
+\setlength{\leftmarginii}{13pt}
+
+\makeatother

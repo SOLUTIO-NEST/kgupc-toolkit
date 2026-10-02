@@ -1,0 +1,12 @@
+build/
+dist/
+*.egg-info/
+__pycache__/
+.venv/
+*.pyc
+*.log
+*.aux
+*.fls
+*.fdb_latexmk
+*.xdv
+*.synctex.gz

@@ -1,0 +1,139 @@
+% ---------- Core ----------
+\input{\KGUPCToolkitRoot/latex/core/packages.tex}
+\input{\KGUPCToolkitRoot/latex/core/fonts.tex}
+\input{\KGUPCToolkitRoot/latex/core/colors.tex}
+\input{\KGUPCToolkitRoot/latex/core/macros.tex}
+
+% ---------- Article Packages ----------
+\usepackage[a4paper, margin=2.5cm, headheight=16pt]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+
+% ---------- Hyperref ----------
+\usepackage{hyperref}
+\tcbuselibrary{listings}
+
+\hypersetup{
+    colorlinks=true,
+    urlcolor=solutio-purple,
+    linkcolor=black,
+    citecolor=black
+}
+
+% ---------- Layout ----------
+\linespread{1.08}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.4em}
+
+% ---------- Header/Footer ----------
+\newcommand{\contestname}{KGUPC}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\contestname}
+\fancyhead[R]{\small\rightmark}
+\fancyfoot[C]{\thepage}
+
+% Flush the previous problem BEFORE updating its metadata and page marks.
+\newcommand{\problemheader}[2]{%
+    \clearpage
+    \setproblem{#1}{#2}%
+    \markboth{Problem #1}{Problem #1}%
+    \phantomsection
+    \addcontentsline{toc}{section}{#1. #2}%
+    \begin{center}
+        {\Large\bfseries Problem #1\par}
+        \vspace{0.4em}
+        {\LARGE\bfseries #2\par}
+    \end{center}
+}
+
+% Limits accept numbers in seconds and MB; empty values remain hidden.
+\newcommand{\problemlimits}[2]{%
+    \ifstrempty{#1}{\ifstrempty{#2}{}{\begin{center}메모리 제한: #2MB\end{center}}}{%
+        \begin{center}
+            시간 제한: #1초%
+            \ifstrempty{#2}{}{\quad\textbar\quad 메모리 제한: #2MB}%
+        \end{center}
+    }%
+}
+
+% ==================================================
+% Common Sections
+% ==================================================
+
+% Keep article section typography with tighter spacing around statement headings.
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+    {-1.5ex \@plus -.3ex \@minus -.2ex}%
+    {.5ex \@plus .1ex}%
+    {\normalfont\Large\bfseries}}
+\makeatother
+
+\newcommand{\InputSection}{\section*{입력}}
+\newcommand{\OutputSection}{\section*{출력}}
+\newcommand{\ConstraintsSection}{\section*{제한}}
+\newcommand{\SampleSection}{\section*{예제}}
+\newcommand{\ExplanationSection}{\section*{예제 설명}}
+\newcommand{\InteractionSection}{\section*{인터랙션}}
+\newcommand{\ScoringSection}{\section*{배점}}
+
+% Verbatim blocks preserve whitespace; long lines wrap and boxes can span pages.
+\tcbset{kgusample/.style={
+    enhanced,
+    listing only,
+    colback=black!2,
+    colframe=solutio-gray,
+    colbacktitle=black!8,
+    coltitle=black,
+    fonttitle=\bfseries,
+    % Stroke the border above the fills to avoid subpixel gaps in PDF viewers.
+    frame hidden,
+    boxrule=0.4pt,
+    titlerule style={solutio-gray, line width=0.4pt},
+    overlay={
+        \draw[solutio-gray, line width=0.4pt]
+            ([xshift=0.2pt,yshift=0.2pt]frame.south west) rectangle
+            ([xshift=-0.2pt,yshift=-0.2pt]frame.north east);
+    },
+    arc=0pt,
+    boxsep=0pt,
+    top=2pt,
+    bottom=2pt,
+    left=6pt,
+    right=6pt,
+    toptitle=2pt,
+    bottomtitle=2pt,
+    before skip=4pt,
+    after skip=4pt,
+    breakable,
+    listing options={basicstyle=\ttfamily\small, columns=fullflexible,
+        keepspaces=true, showstringspaces=false, breaklines=true,
+        aboveskip=0pt, belowskip=0pt}
+}}
+\newtcblisting{SampleInput}[1][1]{kgusample, title={예제 입력 #1}}
+\newtcblisting{SampleOutput}[1][1]{kgusample, title={예제 출력 #1}}
+
+% Read examples as literal files; statement sources contain no layout commands.
+\newcommand{\SampleFilePair}[3]{%
+    \noindent\begin{minipage}[t]{0.48\linewidth}
+        \vspace{0pt}%
+        \tcbinputlisting{kgusample, unbreakable, title={예제 입력 #1}, listing file={#2}}%
+    \end{minipage}\hfill%
+    \begin{minipage}[t]{0.48\linewidth}
+        \vspace{0pt}%
+        \tcbinputlisting{kgusample, unbreakable, title={예제 출력 #1}, listing file={#3}}%
+    \end{minipage}\par
+}
+\newcommand{\SampleFileStack}[3]{%
+    \tcbinputlisting{kgusample, title={예제 입력 #1}, listing file={#2}}%
+    \tcbinputlisting{kgusample, title={예제 출력 #1}, listing file={#3}}%
+}
+\newcommand{\polygonstatement}[2]{\input{\KGUPCStatementRoot/#1.tex}}
+\newread\StatementDependencyStream
+\newcommand{\StatementSourceDependency}[1]{%
+    \openin\StatementDependencyStream="#1"\relax
+    \closein\StatementDependencyStream
+}
+
+\input{\KGUPCToolkitRoot/latex/core/problem-set.tex}

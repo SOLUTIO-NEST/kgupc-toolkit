@@ -1,0 +1,40 @@
+\everymath{\displaystyle}
+
+\newcommand{\complexity}[1]{
+    \[
+        \mathcal{O}(#1)
+    \]
+}
+
+\newcommand{\difficulty}[2]{
+    {\color{#1}\textbf{#2}}
+}
+
+\newcommand{\ceil}[1]{
+    \left\lceil #1 \right\rceil
+}
+
+\newcommand{\floor}[1]{
+    \left\lfloor #1 \right\rfloor
+}
+
+\newcommand{\abs}[1]{
+    \left| #1 \right|
+}
+
+\newcommand{\norm}[1]{
+    \left\| #1 \right\|
+}
+
+\newcommand{\tiertext}[1]{{\color{ac#1}\textbf{#1}}}
+
+\newcommand{\tagtext}[1]{{\consolas{#1}}}
+
+\newcommand{\idtext}[1]{\href{https://solved.ac/profile/#1}{@#1}}
+
+\newcommand{\pletter}{}
+\newcommand{\ptitle}{}
+\newcommand{\setproblem}[2]{
+    \renewcommand{\pletter}{#1}
+    \renewcommand{\ptitle}{#2}
+}

@@ -1,0 +1,34 @@
+% Shared selection, front matter, and page numbering for all contest problem sets.
+\newif\ifproblemselected
+\newcommand{\includeproblem}[2]{%
+    \ifdefined\SelectedProblem
+        \ifdefstring{\SelectedProblem}{#1}{%
+            \problemselectedtrue
+            \import{#1/}{#2}%
+        }{}%
+    \else
+        \import{#1/}{#2}%
+    \fi
+}
+
+\newcommand{\problemsetfrontmatter}{%
+    \ifdefined\SelectedProblem
+    \else
+        \hypersetup{pageanchor=false}
+        \pagenumbering{gobble}
+        \maketitle
+        \thispagestyle{empty}
+        \tableofcontents
+        \clearpage
+        \pagenumbering{arabic}
+        \hypersetup{pageanchor=true}
+    \fi
+}
+
+\newcommand{\checkselectedproblem}{%
+    \ifdefined\SelectedProblem
+        \ifproblemselected\else
+            \PackageError{kgupc}{Unknown selected problem}{Check problem-list.tex.}
+        \fi
+    \fi
+}
