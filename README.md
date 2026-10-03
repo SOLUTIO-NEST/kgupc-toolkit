@@ -14,6 +14,8 @@ KGUPC의 공통 LaTeX 템플릿과 한글 PDF 생성기를 배포하는 Python �
 
 ## 설치와 호출
 
+문제집의 한글은 패키지에 포함된 Noto Sans CJK KR, 영문은 시스템의 Arial을 사용합니다. Arial이 없는 환경에서는 패키지의 Inter로 대체합니다. 수식과 예제(Consolas 또는 D2Coding)는 기존 글꼴을 유지하며, 에디토리얼의 글꼴은 변경하지 않습니다. Noto Sans CJK KR의 출처는 [noto-cjk](https://github.com/notofonts/noto-cjk)이며, 글꼴과 함께 `resources/fonts/NotoSansCJK-LICENSE.txt`를 배포합니다.
+
 문제 본문은 문단 내부 줄 간격을 `1.08`, 문단 사이 간격을 `0.75em`으로 설정합니다. `enumerate`와 `itemize`는 항목 사이 `0.2em`, 목록 안 문단 사이 `0pt`를 사용합니다. 입력·출력·제한 등의 제목 앞 간격은 `3.5ex`로 두어 구역을 구분하고, 제목 바로 아래 간격은 `0.5ex`로 유지합니다. 예제는 별도의 ‘예제’ 제목 없이 ‘예제 입력 N / 예제 출력 N’ 상자 제목으로 표시합니다. 기존 `\SampleSection` 호출은 예제 앞 간격을 넣으므로 계속 사용할 수 있습니다.
 
 Python 3.10 이상, XeLaTeX와 latexmk가 필요합니다. 아래 명령은 toolkit 저장소에서 실행합니다.

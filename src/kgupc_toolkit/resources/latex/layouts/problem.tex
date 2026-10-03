@@ -1,6 +1,33 @@
 % ---------- Core ----------
 \input{\KGUPCToolkitRoot/latex/core/packages.tex}
 \input{\KGUPCToolkitRoot/latex/core/fonts.tex}
+% Problem documents use Arial for Latin text and bundled Noto Sans for Korean.
+% Keep the editorial fonts in core/fonts.tex independent of this layout.
+\IfFontExistsTF{Arial}{
+    \setmainfont{Arial}
+    \setsansfont{Arial}
+}{
+    \setmainfont{Inter}[
+        Path = \KGUPCToolkitRoot/fonts/,
+        Extension = .otf,
+        UprightFont = *-Regular,
+        BoldFont = *-Bold,
+        ItalicFont = *-Italic,
+        BoldItalicFont = *-BoldItalic
+    ]
+}
+\setmainhangulfont[interhchar=-0.06em]{NotoSansCJKkr}[
+    Path = \KGUPCToolkitRoot/fonts/,
+    Extension = .otf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold
+]
+\setsanshangulfont[interhchar=-0.06em]{NotoSansCJKkr}[
+    Path = \KGUPCToolkitRoot/fonts/,
+    Extension = .otf,
+    UprightFont = *-Regular,
+    BoldFont = *-Bold
+]
 \input{\KGUPCToolkitRoot/latex/core/colors.tex}
 \input{\KGUPCToolkitRoot/latex/core/macros.tex}
 
