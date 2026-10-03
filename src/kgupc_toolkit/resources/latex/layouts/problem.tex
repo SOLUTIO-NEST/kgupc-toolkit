@@ -21,10 +21,12 @@
 }
 
 % ---------- Layout ----------
+% Keep the original spacing within a paragraph; blank lines add paragraph space.
 \linespread{1.08}
-
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.4em}
+% Compensate headings and lists so they do not inherit the larger paragraph gap.
+\usepackage[skip=.75em,indent=0pt]{parskip}
+% Keep list items compact independently of the body paragraph spacing.
+\setlist[itemize,enumerate]{topsep=.35em, itemsep=.2em, parsep=0pt, partopsep=0pt}
 
 % ---------- Header/Footer ----------
 \newcommand{\contestname}{KGUPC}
@@ -40,7 +42,7 @@
     \setproblem{#1}{#2}%
     \markboth{Problem #1}{Problem #1}%
     \phantomsection
-    \addcontentsline{toc}{section}{#1. #2}%
+    \addcontentsline{toc}{section}{\protect\numberline{#1.}#2}%
     \begin{center}
         {\Large\bfseries Problem #1\par}
         \vspace{0.4em}
@@ -62,10 +64,10 @@
 % Common Sections
 % ==================================================
 
-% Keep article section typography with tighter spacing around statement headings.
+% Separate statement sections clearly; keep headings close to their contents.
 \makeatletter
 \renewcommand{\section}{\@startsection{section}{1}{\z@}%
-    {-1.5ex \@plus -.3ex \@minus -.2ex}%
+    {-3.5ex \@plus -.5ex \@minus -.3ex}%
     {.5ex \@plus .1ex}%
     {\normalfont\Large\bfseries}}
 \makeatother
@@ -73,7 +75,8 @@
 \newcommand{\InputSection}{\section*{입력}}
 \newcommand{\OutputSection}{\section*{출력}}
 \newcommand{\ConstraintsSection}{\section*{제한}}
-\newcommand{\SampleSection}{\section*{예제}}
+% The box titles already identify the examples; retain the section boundary.
+\newcommand{\SampleSection}{\par\addvspace{3.5ex}}
 \newcommand{\ExplanationSection}{\section*{예제 설명}}
 \newcommand{\InteractionSection}{\section*{인터랙션}}
 \newcommand{\ScoringSection}{\section*{배점}}
@@ -107,7 +110,8 @@
     before skip=4pt,
     after skip=4pt,
     breakable,
-    listing options={basicstyle=\ttfamily\small, columns=fullflexible,
+    % Consolas uses the same advance for every sample character.
+    listing options={basicstyle=\consolas\small, columns=fullflexible,
         keepspaces=true, showstringspaces=false, breaklines=true,
         aboveskip=0pt, belowskip=0pt}
 }}

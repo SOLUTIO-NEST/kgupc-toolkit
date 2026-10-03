@@ -11,15 +11,59 @@
     \fi
 }
 
+% The cover has its own typography and paragraph spacing.
+% Keep the contents as normal paragraphs so a longer list can span pages.
+\newcommand{\problemsetlabel}{Problem Set}
+\makeatletter
+\newcommand{\KGUPCCoverEntry}[2]{%
+    \par\addvspace{4pt}%
+    \noindent
+    \begingroup
+        \normalfont\fontsize{14}{22}\selectfont
+        \def\numberline##1{\makebox[1.75em][l]{\bfseries ##1}}%
+        #1\nobreak\hfill\nobreak\makebox[1.5em][r]{\bfseries #2}\par
+    \endgroup
+}
+\newcommand{\KGUPCProblemSetCover}{%
+    \begingroup
+        \setlength{\parskip}{0pt}%
+        \setlength{\parindent}{0pt}%
+        \setlength{\leftskip}{0.07\textwidth}%
+        \setlength{\rightskip}{0.07\textwidth}%
+        \linespread{1}\selectfont
+        % Fixed top offset and header height keep the contents start independent
+        % of the number of problems. The list can continue onto another page.
+        \vspace*{95pt}%
+        \noindent\begin{minipage}[t][200pt][t]{0.86\textwidth}
+            \setlength{\parskip}{0pt}%
+            \setlength{\parindent}{0pt}%
+            \begin{minipage}[t][72pt][t]{\linewidth}
+                {\fontsize{26}{32}\selectfont\bfseries\@title\par}%
+                \vspace{5pt}%
+                {\fontsize{18}{24}\selectfont\color{black}\problemsetlabel\par}%
+            \end{minipage}\par
+            {\fontsize{13}{18}\selectfont\noindent
+                \@author\nobreak\hfill\nobreak\@date\par}%
+        \end{minipage}\par
+        {\fontsize{19}{25}\selectfont\bfseries\contentsname\par}%
+        \vspace{12pt}%
+        \let\l@section\KGUPCCoverEntry
+        \hypersetup{linktoc=all}%
+        \@starttoc{toc}%
+    \endgroup
+}
+\makeatother
+
 \newcommand{\problemsetfrontmatter}{%
     \ifdefined\SelectedProblem
     \else
         \hypersetup{pageanchor=false}
         \pagenumbering{gobble}
-        \maketitle
+        \pagestyle{empty}
         \thispagestyle{empty}
-        \tableofcontents
+        \KGUPCProblemSetCover
         \clearpage
+        \pagestyle{fancy}
         \pagenumbering{arabic}
         \hypersetup{pageanchor=true}
     \fi
